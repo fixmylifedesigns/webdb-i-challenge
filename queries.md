@@ -39,5 +39,13 @@ group by customers.customerName
 order by orders desc;
 
 ## list orders grouped by customer's city showing number of orders per city. Returns 58 Records with _Aachen_ showing 2 orders and _Albuquerque_ showing 7 orders.
-
+SELECT Customers.city, Count(Orders.customerid) as orders
+FROM Orders
+INNER JOIN Customers
+ON Orders.customerid=customers.customerid
+group by customers.city
 ## delete all users that have no orders. Should delete 17 (or 18 if you haven't deleted the record added) records.
+DELETE FROM customers 
+WHERE NOT EXISTS (SELECT * 
+FROM orders 
+WHERE orders.customerid = customers.customerid); 
